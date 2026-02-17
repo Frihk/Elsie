@@ -1,0 +1,223 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #fff5ee, #f3e4e4);
+    color: #2b2b2b;
+    scroll-behavior: smooth;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 20px;
+    background: rgba(255, 245, 238, 0.95);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    z-index: 1000;
+}
+
+/* subtle scale on hover */
+.navbar:hover {
+    transform: scale(1.04);
+    box-shadow: 0 10px 30px rgba(95, 42, 42, 0.18);
+}
+
+/* groups for top / bottom links - now all horizontal in one line */
+.nav-top,
+.nav-bottom {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+}
+
+/* generic nav item styles */
+.nav-top a,
+.nav-bottom a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    color: #5f2a2a;
+    text-decoration: none;
+    background: transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background 0.15s ease, transform 0.12s ease;
+    white-space: nowrap;
+}
+
+.nav-top a:hover,
+.nav-bottom a:hover {
+    background: rgba(95, 42, 42, 0.08);
+    transform: translateY(-2px);
+}
+
+/* ===== BRAND (top-left position) ===== */
+.brand {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: #5f2a2a;
+    letter-spacing: 2px;
+    text-align: left;
+    z-index: 1000;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+/* if you use icons inside links, keep them centered and small */
+.nav-container a svg,
+.nav-item svg {
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+}
+
+/* ===== HERO ===== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px 60px; /* reduced top padding for corner navbar */
+}
+
+.hero-content {
+    max-width: 1200px;
+    width: 100%;
+}
+.tagline {
+    color: #5f2a2a;
+    font-weight: 600;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    color: #5f2a2a;
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 14px 32px;
+    background: #5f2a2a;
+    color: #fff5ee;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 999px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(95, 42, 42, 0.35);
+}
+
+.hero-with-photo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    flex-wrap: nowrap;
+}
+
+.hero-text {
+    flex: 1;
+    min-width: 350px;
+    text-align: left;
+}
+
+.hero-photo {
+    flex: 0 0 360px;
+    min-width: 360px;
+    position: relative;
+}
+
+.hero-photo img {
+    width: 100%;
+    height: auto;
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(95, 42, 42, 0.12);
+    object-fit: cover;
+    aspect-ratio: 1;
+    transition: filter 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    filter: brightness(0.97) saturate(1.08);
+}
+
+.hero-photo img:hover {
+    filter: brightness(1) saturate(1.15);
+    box-shadow: 0 35px 70px rgba(95, 42, 42, 0.18);
+    transform: translateY(-4px);
+}
+
+/* Remove logo container */
+.logo-container {
+    display: none;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .hero-with-photo {
+        gap: 40px;
+    }
+
+    .hero-photo {
+        flex: 0 0 280px;
+        min-width: 280px;
+    }
+
+    .hero-text {
+        min-width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-with-photo {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .hero-text {
+        text-align: center;
+        min-width: auto;
+    }
+
+    .hero-photo {
+        flex: 0 0 300px;
+        min-width: 300px;
+    }
+
+    .tagline,
+    .hero-title,
+    .hero-description {
+        text-align: center;
+    }
+}
