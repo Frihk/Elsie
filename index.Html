@@ -7,28 +7,28 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-top">
-            <a href="index.Html">Home</a>
-            <a href="Projects.html">Projects</a>
-            <a href="Services.html">Services</a>
+    <nav class="navbar" role="navigation" aria-label="Primary">
+        <div class="nav-top" role="menubar" aria-label="Main links">
+            <a href="index.Html" role="menuitem">Home</a>
+            <a href="Projects.html" role="menuitem">Projects</a>
+            <a href="Services.html" role="menuitem">Services</a>
         </div>
         
-        <div class="nav-bottom">
-            <a href="About.html">About</a>
-            <a href="Contact.html">Contact</a>
+        <div class="nav-bottom" role="menubar" aria-label="Secondary links">
+            <a href="About.html" role="menuitem">About</a>
+            <a href="Contact.html" role="menuitem">Contact</a>
         </div>
     </nav>
 
-    <div class="brand">Elsie</div>
+    <div class="brand" aria-hidden="true">Elsie</div>
 
-    <section class="hero">
+    <section class="hero" aria-labelledby="hero-title">
         <div class="hero-content">
             <div class="hero-with-photo">
                 <div class="hero-text">
                     <p class="tagline">Premium Digital Craft</p>
 
-                    <h1 class="hero-title">
+                    <h1 id="hero-title" class="hero-title">
                         Building Elegant<br>Web Experiences
                     </h1>
 
@@ -37,15 +37,15 @@
                         brands stand out with confidence and style.
                     </p>
 
-                    <a href="Projects.html" class="cta-button">
+                    <a href="Projects.html" class="cta-button" role="button" aria-label="View My Work" tabindex="0">
                         View My Work
                         <span class="arrow">→</span>
                     </a>
                 </div>
                 
-                <div class="hero-photo">
+                <div class="hero-photo" aria-hidden="true">
                     <div class="photo-container">
-                        <img src="photos/ceo-photo.png" alt="CEO/Business Owner">
+                        <img src="photos/ceo-photo.png" alt="CEO / Business Owner seated" width="540" height="auto" loading="eager">
                     </div>
                 </div>
             </div>

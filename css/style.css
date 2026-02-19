@@ -6,26 +6,22 @@
 
 body {
     font-family: 'Arial', 'Helvetica', sans-serif;
-    background: linear-gradient(135deg, #fff5ee, #f3e4e4);
-    color: #2b2b2b;
+    /* use supplied dark marble background (placed at /photos/image.png) */
+    background-image: url('../photos/image.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #e9d6b2;               /* warm, readable light tone on dark background */
     scroll-behavior: smooth;
     position: relative;
 }
 
+/* subtle darkening vignette + soft radial to make left text readable and right subject pop */
 body::before {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        repeating-linear-gradient(
-            0deg,
-            rgba(0, 0, 0, 0.015) 1px,
-            transparent 1px,
-            transparent 2px
-        );
+    inset: 0;
+    background: radial-gradient(1200px 600px at 72% 45%, rgba(0,0,0,0.08), rgba(0,0,0,0.30) 40%, rgba(0,0,0,0.52));
     pointer-events: none;
     z-index: -1;
 }
@@ -40,55 +36,59 @@ body::before {
     align-items: center;
     gap: 40px;
     padding: 16px 32px;
-    background: rgba(255, 245, 238, 0.92);
-    backdrop-filter: blur(12px);
+    background: transparent; /* transparent so marble shows through */
     border-radius: 12px;
     transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     z-index: 1000;
-    border: 1px solid rgba(95, 42, 42, 0.05);
+    border-bottom: 1px solid rgba(212,162,90,0.12); /* delicate gold divider */
+    backdrop-filter: none;
 }
 
+/* slightly stronger separation when hovering (still very restrained) */
 .navbar:hover {
-    background: rgba(255, 245, 238, 0.95);
-    box-shadow: 0 8px 32px rgba(95, 42, 42, 0.08);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.28);
 }
 
+/* nav groups remain horizontal */
 .nav-top,
 .nav-bottom {
     display: flex;
     flex-direction: row;
-    gap: 32px;
+    gap: 36px; /* slightly increased spacing for editorial feel */
     align-items: center;
 }
 
+/* nav link styling tuned to match gold tones and refined weight */
 .nav-top a,
 .nav-bottom a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 8px 2px;
-    color: #5f2a2a;
+    color: rgba(212,162,90,0.98); /* warm gold */
     text-decoration: none;
     background: transparent;
     border-radius: 0;
-    font-weight: 500;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
+    font-weight: 400;           /* reduced weight for elegance */
+    font-size: 0.95rem;
+    letter-spacing: 0.8px;
     transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     position: relative;
     white-space: nowrap;
 }
 
+/* refined underline on hover (very subtle) */
 .nav-top a::after,
 .nav-bottom a::after {
     content: '';
     position: absolute;
-    bottom: -4px;
+    bottom: -6px;
     left: 0;
     width: 0;
     height: 1px;
-    background: #5f2a2a;
+    background: rgba(212,162,90,0.9);
     transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 0.9;
 }
 
 .nav-top a:hover::after,
@@ -96,19 +96,14 @@ body::before {
     width: 100%;
 }
 
-/* ===== BRAND ===== */
+/* brand color tuned to gold and positioned exactly as before */
 .brand {
-    position: fixed;
-    top: 40px;
-    left: 40px;
-    font-weight: 700;
-    font-size: 1.6rem;
-    color: #5f2a2a;
-    letter-spacing: 3px;
-    text-align: left;
     z-index: 1000;
     pointer-events: none;
     white-space: nowrap;
+    color: rgba(212,162,90,1);
+    font-weight: 600;
+    letter-spacing: 1px;
     animation: fadeInDown 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     opacity: 0;
 }
@@ -153,17 +148,18 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 160px 40px 160px; /* increased breathing space top & bottom */
+    padding: 160px 40px 160px; /* keep large breathing space */
     position: relative;
     overflow: visible;
 }
 
+/* content width tuned to 1100–1160px for strict editorial column */
 .hero-content {
-    max-width: 1160px; /* strict editorial width */
+    max-width: 1160px;
     width: 100%;
 }
 
-/* use a 12-column grid for precise alignment while preserving HTML structure */
+/* grid keeps the left text / right image balance */
 .hero-with-photo {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -262,15 +258,15 @@ body::before {
     transform: translateX(6px);
 }
 
-/* hero-photo sits to the right occupying 5 columns, slightly overlapping layout for depth */
+/* hero-photo refinement: slightly larger max-width and tighter placement to match reference */
 .hero-photo {
     grid-column: 9 / -1;
     justify-self: end;
     position: relative;
     z-index: 2;
-    align-self: end;               /* sit visually lower for editorial balance */
+    align-self: end;
     width: 100%;
-    max-width: 420px;              /* controlled maximum width for elegance */
+    max-width: 540px; /* increased to match visual proportions from reference */
 }
 
 /* container for backgroundless/photo integration */
@@ -285,43 +281,42 @@ body::before {
 .photo-container img {
     width: 100%;
     height: auto;
-    object-fit: contain;           /* preserve cutout proportions */
-    filter: drop-shadow(0 18px 36px rgba(0,0,0,0.12)); /* realistic shadow under figure/stool */
+    object-fit: contain;
+    filter: drop-shadow(0 24px 48px rgba(0,0,0,0.45));
     transition: filter 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1);
     transform: translateY(0);
     display: block;
 }
 
-/* subtle lift on hover — slow and refined */
+/* a very slow, subtle lift on hover (still restrained) */
 .photo-container img:hover {
-    transform: translateY(-6px);
-    filter: drop-shadow(0 24px 44px rgba(0,0,0,0.14));
+    transform: translateY(-8px);
+    filter: drop-shadow(0 34px 64px rgba(0,0,0,0.50));
 }
 
-/* soft radial halo behind figure to integrate into page */
+/* cutout integration: stronger ambient halo and realistic ground shadow tuned for image.png */
 .hero-photo::before {
     content: '';
     position: absolute;
-    right: -6%;
-    bottom: -8%;
-    width: 420px;
-    height: 420px;
-    background: radial-gradient(closest-side, rgba(95,42,42,0.06), rgba(95,42,42,0.02) 50%, transparent 70%);
-    filter: blur(36px);
+    right: -4%;
+    bottom: -10%;
+    width: 640px;
+    height: 640px;
+    background: radial-gradient(closest-side, rgba(212,162,90,0.07), rgba(212,162,90,0.02) 45%, transparent 72%);
+    filter: blur(56px);
     z-index: 1;
     pointer-events: none;
 }
 
-/* subtle ground shadow ellipse to anchor stool */
 .hero-photo::after {
     content: '';
     position: absolute;
-    right: 6%;
+    right: 4%;
     bottom: -6%;
-    width: 220px;
-    height: 36px;
-    background: rgba(0,0,0,0.12);
-    filter: blur(14px);
+    width: 340px;
+    height: 48px;
+    background: rgba(0,0,0,0.30);
+    filter: blur(22px);
     border-radius: 50%;
     transform: translateY(6px);
     z-index: 0;
@@ -340,7 +335,7 @@ body::before {
     box-shadow: 0 6px 20px rgba(95,42,42,0.045);
 }
 
-/* very subtle grain overlay for tactile premium feel (2–3% opacity) */
+/* very subtle grain overlay for tactile premium feel (2–4% opacity) */
 body::after {
     content: '';
     position: fixed;
@@ -348,8 +343,8 @@ body::after {
     pointer-events: none;
     background-image:
         radial-gradient(rgba(0,0,0,0.015) 1px, transparent 1px);
-    background-size: 4px 4px;
-    opacity: 0.03;
+    background-size: 3px 3px;    /* slightly finer grain to match photographic feel */
+    opacity: 0.04;               /* small increase for tactile depth, still very subtle */
     z-index: -1;
 }
 
