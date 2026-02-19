@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Elsie — Contact</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="Primary">
+        <div class="nav-top" role="menubar" aria-label="Main links">
+            <a href="index.Html" role="menuitem">Home</a>
+            <a href="Projects.html" role="menuitem">Projects</a>
+            <a href="Services.html" role="menuitem">Services</a>
+        </div>
+        <div class="nav-bottom" role="menubar" aria-label="Secondary links">
+            <a href="About.html" role="menuitem">About</a>
+            <a href="Contact.html" role="menuitem">Contact</a>
+        </div>
+    </nav>
+
+    <div class="brand">Elsie</div>
+
+    <header class="section hero" aria-labelledby="contact-hero">
+        <div class="hero-content container">
+            <div class="hero-text" style="max-width:720px;">
+                <p class="tagline">Get In Touch</p>
+                <h1 id="contact-hero" class="hero-title">Let’s Build Something Remarkable</h1>
+                <p class="hero-description">If you have a project, collaboration or a simple question — I’d love to hear from you.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="max-width:920px;margin:72px auto;padding:0 20px;">
+        <section class="section contact-grid">
+            <form class="contact-form" action="#" method="POST" aria-label="Contact form">
+                <!-- EDIT FORM ACTION -->
+                <label for="name">Full Name</label>
+                <input id="name" name="name" type="text" required>
+
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" required>
+
+                <label for="type">Project Type</label>
+                <select id="type" name="type">
+                    <option>Brand Identity</option>
+                    <option>Website</option>
+                    <option>Editorial</option>
+                    <option>Other</option>
+                </select>
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required></textarea>
+
+                <button type="submit" class="cta-button">Send Message</button>
+            </form>
+
+            <aside class="contact-details">
+                <h3>Contact</h3>
+                <p><!-- Email -->
+                    Email: <a href="mailto:hello@example.com">hello@example.com</a>
+                </p>
+                <p><!-- Phone -->
+                    Phone: <span>+1 (555) 123‑4567</span>
+                </p>
+                <p><!-- Location -->
+                    Location: <span>London / Remote</span>
+                </p>
+                <div class="socials">
+                    <a href="#">Instagram</a> · <a href="#">LinkedIn</a>
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <footer style="padding:72px 20px;text-align:center;color:rgba(43,43,43,0.6);">
+        © 2026 Elsie
+    </footer>
+</body>
+</html>

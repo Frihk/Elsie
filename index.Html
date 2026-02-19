@@ -4,31 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elsie — Premium Digital Craft</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-top">
-            <a href="index.Html">Home</a>
-            <a href="Projects.html">Projects</a>
-            <a href="Services.html">Services</a>
+    <nav class="navbar" role="navigation" aria-label="Primary">
+        <div class="nav-top" role="menubar" aria-label="Main links">
+            <a href="index.Html" role="menuitem">Home</a>
+            <a href="Projects.html" role="menuitem">Projects</a>
+            <a href="Services.html" role="menuitem">Services</a>
         </div>
         
-        <div class="nav-bottom">
-            <a href="About.html">About</a>
-            <a href="Contact.html">Contact</a>
+        <div class="nav-bottom" role="menubar" aria-label="Secondary links">
+            <a href="About.html" role="menuitem">About</a>
+            <a href="Contact.html" role="menuitem">Contact</a>
         </div>
     </nav>
 
-    <div class="brand">Elsie</div>
+    <div class="brand" aria-hidden="true">Elsie</div>
 
-    <section class="hero">
+    <section class="hero" aria-labelledby="hero-title">
         <div class="hero-content">
             <div class="hero-with-photo">
                 <div class="hero-text">
                     <p class="tagline">Premium Digital Craft</p>
 
-                    <h1 class="hero-title">
+                    <h1 id="hero-title" class="hero-title">
                         Building Elegant<br>Web Experiences
                     </h1>
 
@@ -37,19 +40,55 @@
                         brands stand out with confidence and style.
                     </p>
 
-                    <a href="Projects.html" class="cta-button">
+                    <a href="Projects.html" class="cta-button" role="button" aria-label="View My Work" tabindex="0">
                         View My Work
                         <span class="arrow">→</span>
                     </a>
                 </div>
                 
-                <div class="hero-photo">
+                <div class="hero-photo" aria-hidden="true">
                     <div class="photo-container">
-                        <img src="photos/ceo-photo.png" alt="CEO/Business Owner">
+                        <img src="photos/ceo-photo.png" alt="CEO / Business Owner seated" width="540" height="auto" loading="eager">
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <div class="page-abstract-1" aria-hidden="true"></div>
+    <div class="page-abstract-2" aria-hidden="true"></div>
+    <div class="page-vignette" aria-hidden="true"></div>
+
+    <script>
+        // Gentle load + parallax for hero elements
+        (function(){
+            const ease = v => v < 0.5 ? 2*v*v : -1 + (4 - 2*v)*v;
+            function onLoad(){
+                document.body.classList.add('is-loaded');
+                const img = document.querySelector('.photo-container img');
+                if(img) img.classList.add('is-loaded');
+            }
+
+            // simple parallax
+            const heroPhoto = document.querySelector('.hero-photo');
+            const heroText = document.querySelector('.hero-text');
+            let latestY = 0;
+            function onScroll(){
+                latestY = window.scrollY || window.pageYOffset;
+            }
+            window.addEventListener('scroll', onScroll, {passive:true});
+
+            function raf(){
+                const y = latestY;
+                if(heroPhoto) heroPhoto.style.transform = `translateY(${y * 0.06}px)`;
+                if(heroText) heroText.style.transform = `translateY(${y * 0.03}px)`;
+                requestAnimationFrame(raf);
+            }
+
+            document.addEventListener('DOMContentLoaded', function(){
+                setTimeout(onLoad, 120);
+                raf();
+            });
+        })();
+    </script>
 </body>
 </html>
