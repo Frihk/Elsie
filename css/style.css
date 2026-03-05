@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 :root {
     --c-primary: #5f2a2a;
@@ -124,12 +124,41 @@ main > section {
     top: 24px;
     left: 40px;
     z-index: 1000;
-    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+    font-style: italic;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    background: linear-gradient(135deg, #9a7446 0%, #d6b987 45%, #8f6a3d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: #8f6a3d;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 12px rgba(95, 42, 42, 0.16);
     pointer-events: none;
     animation: fadeInDown 0.8s var(--ease-lux) forwards;
     opacity: 0;
+}
+
+.brand--stacked {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    line-height: 0.95;
+    text-align: center;
+}
+
+.brand--stacked .brand-line-1 {
+    letter-spacing: 0.13em;
+}
+
+.brand--stacked .brand-line-2 {
+    font-size: 0.58em;
+    font-style: normal;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
 }
 
 .navbar {
