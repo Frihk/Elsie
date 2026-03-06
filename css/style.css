@@ -130,12 +130,8 @@ main > section {
     font-weight: 600;
     letter-spacing: 0.06em;
     line-height: 1;
-    background: linear-gradient(135deg, #9a7446 0%, #d6b987 45%, #8f6a3d 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: #8f6a3d;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 2px 12px rgba(95, 42, 42, 0.16);
+    color: var(--c-primary);
+    text-shadow: 0 2px 10px rgba(95, 42, 42, 0.1);
     pointer-events: none;
     animation: fadeInDown 0.8s var(--ease-lux) forwards;
     opacity: 0;
