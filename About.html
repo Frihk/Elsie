@@ -3,24 +3,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Eira Executive Operations - About</title>
+    <title>Eira — Executive Operations</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <nav class="navbar" role="navigation" aria-label="Primary">
         <div class="nav-top" role="menubar" aria-label="Main links">
-            <a href="index.html" role="menuitem">Home</a>
-            <a href="Projects.html" role="menuitem">Projects</a>
-            <a href="Services.html" role="menuitem">Services</a>
+            <a href="index.html" role="menuitem">Services</a>
+            <a href="Projects.html" role="menuitem">Process</a>
+            <a href="Services.html" role="menuitem">Clients</a>
         </div>
         <div class="nav-bottom" role="menubar" aria-label="Secondary links">
-            <a href="About.html" role="menuitem">About</a>
-            <a href="Contact.html" role="menuitem">Contact</a>
+            <a href="About.html" role="menuitem">Contact</a>
+            <a href="Contact.html" role="menuitem">Enquire</a>
         </div>
     </nav>
 
     <div class="brand brand--stacked" aria-hidden="true">
-        <span class="brand-line-1">EIRA</span>
+        <span class="brand-line-1">Eira.</span>
         <span class="brand-line-2">Executive Operations</span>
     </div>
 
@@ -28,13 +28,12 @@
         <div class="hero-content container">
             <div class="hero-with-photo">
                 <div class="hero-text">
-                    <p class="tagline">Eira Executive Operations</p>
-                    <h1 id="about-hero" class="hero-title">Boutique Executive Operations for High-Net-Worth Founders and CEOs</h1>
+                    <p class="tagline">About Eira</p>
+                    <h1 id="about-hero" class="hero-title">Where operational precision meets executive ambition.</h1>
                     <p class="hero-description">
-                        We partner with founders and CEOs managing multi-entity complexity, handling the operational
-                        coordination that consumes 15-20 hours of your week so you can stay focused on high-value CEO work.
+                        Founded on the belief that the world's most driven leaders deserve operations that match their vision — Eira is the silent architecture behind extraordinary outcomes. We don't just manage tasks. We design the systems, rhythms, and frameworks that let you move at the speed your ambitions demand.
                     </p>
-                    <a href="Contact.html" class="cta-button">Work With Me <span class="arrow">→</span></a>
+                    <a href="Contact.html" class="cta-button">Begin the Conversation <span class="arrow">→</span></a>
                 </div>
 
                 <div class="hero-photo">
@@ -53,51 +52,45 @@
                 </div>
             </div>
             <div class="col col-text">
-                <h2 id="founder-title">About Eira Executive Operations</h2>
-                <h3>Strategic Operations Partnership, Not Traditional VA Support</h3>
+                <h2 id="founder-title">About Eira</h2>
+                <h3>Where operational precision meets executive ambition.</h3>
                 <p class="muted">
-                    We provide deeply hands-on executive operations support tailored to each client's unique ecosystem:
-                    calendar management across multiple entities, family office operations, global travel and logistics
-                    coordination, stakeholder communication, and cross-border administrative oversight.
+                    Founded on the belief that the world's most driven leaders deserve operations that match their vision — Eira is the silent architecture behind extraordinary outcomes.
                 </p>
                 <p class="muted">
-                    We invest the time to learn your business, family office structure, investment portfolio, key
-                    stakeholders, and operational rhythms so we can handle complexity, make judgment calls, and
-                    manage critical relationships without constant supervision or hand-holding.
+                    We don't just manage tasks. We design the systems, rhythms, and frameworks that let you move at the speed your ambitions demand.
                 </p>
                 <blockquote class="signature">
                     <em>
-                        "We don't just execute tasks. We understand context, anticipate needs, coordinate across your
-                        portfolio, and ensure nothing falls through the cracks."
+                        "Where operational precision meets executive ambition."
                     </em>
                 </blockquote>
             </div>
         </section>
 
         <section class="section" aria-labelledby="philosophy">
-            <h2 id="philosophy" style="text-align:center;font-family:'Playfair Display',serif;">Efficiency with discretion.</h2>
+            <h2 id="philosophy" style="text-align:center;font-family:'Playfair Display',serif;">Confidential</h2>
             <p style="max-width:820px;margin:18px auto;color:rgba(43,43,43,0.9);line-height:1.8;text-align:center;">
-                My work combines structure, communication, and precision to reduce executive workload,
-                protect focus time, and maintain seamless operations in high-pressure environments.
+                100%
             </p>
         </section>
 
         <section class="section timeline" aria-labelledby="exp-title">
-            <h3 id="exp-title">Proof of Impact</h3>
+            <h3 id="exp-title">About Eira</h3>
             <div class="timeline-list">
                 <div class="timeline-item">
-                    <div class="year">Calendar</div>
+                    <div class="year">48+</div>
                     <div class="details">
-                        <h4>Calendar & Schedule Management</h4>
-                        <p>Reduced scheduling conflicts by 90% and freed up 10+ hours per week.</p>
+                        <h4>Executives Served</h4>
+                        <p>Executive Operations · Est. 2024</p>
                     </div>
                 </div>
 
                 <div class="timeline-item">
-                    <div class="year">Travel</div>
+                    <div class="year">19</div>
                     <div class="details">
-                        <h4>Travel Coordination & Logistics</h4>
-                        <p>Saved 15+ hours of planning time per trip and reduced travel costs by 20%.</p>
+                        <h4>Countries Operated In</h4>
+                        <p>Global operations. Absolute discretion.</p>
                     </div>
                 </div>
             </div>
@@ -105,8 +98,20 @@
     </main>
 
     <footer style="padding:72px 20px;text-align:center;color:rgba(43,43,43,0.6);">
-        © <span id="year">2026</span> Eira Executive Operations - All Rights Reserved
+        © <span id="year">2025</span> Eira Executive Operations. All rights reserved.
     </footer>
 
+    <script>
+        (function(){
+            const current = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.navbar a').forEach((link) => {
+                const href = link.getAttribute('href') || '';
+                const target = href.split('/').pop();
+                if (target === current) {
+                    link.classList.add('is-active');
+                }
+            });
+        })();
+    </script>
 </body>
 </html>

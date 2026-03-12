@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eira Executive Operations — Home</title>
+    <title>Eira — Executive Operations</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
@@ -12,19 +12,19 @@
 <body>
     <nav class="navbar" role="navigation" aria-label="Primary">
         <div class="nav-top" role="menubar" aria-label="Main links">
-            <a href="index.html" role="menuitem">Home</a>
-            <a href="Projects.html" role="menuitem">Projects</a>
-            <a href="Services.html" role="menuitem">Services</a>
+            <a href="index.html" role="menuitem">Services</a>
+            <a href="Projects.html" role="menuitem">Process</a>
+            <a href="Services.html" role="menuitem">Clients</a>
         </div>
         
         <div class="nav-bottom" role="menubar" aria-label="Secondary links">
-            <a href="About.html" role="menuitem">About</a>
-            <a href="Contact.html" role="menuitem">Contact</a>
+            <a href="About.html" role="menuitem">Contact</a>
+            <a href="Contact.html" role="menuitem">Enquire</a>
         </div>
     </nav>
 
     <div class="brand brand--stacked" aria-hidden="true">
-        <span class="brand-line-1">EIRA</span>
+        <span class="brand-line-1">Eira.</span>
         <span class="brand-line-2">Executive Operations</span>
     </div>
 
@@ -32,19 +32,18 @@
         <div class="hero-content">
             <div class="hero-with-photo">
                 <div class="hero-text">
-                    <p class="tagline">Executive Virtual Assistant</p>
+                    <p class="tagline">Executive Operations · Est. 2024</p>
 
                     <h1 id="hero-title" class="hero-title">
-                        Discreet, Reliable, and Dedicated Support<br>for Busy Executives
+                        Operations<br>Elevated. Outcomes Assured.
                     </h1>
 
                     <p class="hero-description">
-                        I help CEOs, founders, and executives stay focused on strategic priorities by
-                        handling the operational and administrative details that distract from leadership.
+                        Eira partners with high-net-worth founders and C-suite executives to architect seamless operations — so you lead at the highest level, unburdened.
                     </p>
 
                     <a href="Contact.html" class="cta-button" role="button" aria-label="Book a Discovery Call" tabindex="0">
-                        Book a Discovery Call
+                        Begin the Conversation
                         <span class="arrow">→</span>
                     </a>
                 </div>
@@ -90,6 +89,18 @@
             document.addEventListener('DOMContentLoaded', function(){
                 setTimeout(onLoad, 120);
                 raf();
+            });
+        })();
+    </script>
+    <script>
+        (function(){
+            const current = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.navbar a').forEach((link) => {
+                const href = link.getAttribute('href') || '';
+                const target = href.split('/').pop();
+                if (target === current) {
+                    link.classList.add('is-active');
+                }
             });
         })();
     </script>

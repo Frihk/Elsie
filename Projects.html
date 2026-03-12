@@ -3,24 +3,24 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Eira Executive Operations - Proof of Work</title>
+    <title>Eira — Executive Operations</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-top">
-            <a href="index.html">Home</a>
-            <a href="Projects.html">Projects</a>
-            <a href="Services.html">Services</a>
+            <a href="index.html">Services</a>
+            <a href="Projects.html">Process</a>
+            <a href="Services.html">Clients</a>
         </div>
         <div class="nav-bottom">
-            <a href="About.html">About</a>
-            <a href="Contact.html">Contact</a>
+            <a href="About.html">Contact</a>
+            <a href="Contact.html">Enquire</a>
         </div>
     </nav>
 
     <div class="brand brand--stacked" aria-hidden="true">
-        <span class="brand-line-1">EIRA</span>
+        <span class="brand-line-1">Eira.</span>
         <span class="brand-line-2">Executive Operations</span>
     </div>
 
@@ -28,13 +28,12 @@
         <div class="hero-content">
             <div class="hero-with-photo">
                 <div class="hero-text">
-                    <p class="tagline">Proof of Work</p>
-                    <h1 class="hero-title">Results Delivered for Executives</h1>
+                    <p class="tagline">Client Voices</p>
+                    <h1 class="hero-title">Built on trust. Measured in outcomes.</h1>
                     <p class="hero-description">
-                        Real outcomes from calendar management, travel coordination, meeting support,
-                        workflow optimization, and executive reporting.
+                        Our clients include serial founders, family office principals, fund managers, and global executives. Identities protected by design.
                     </p>
-                    <a href="#work" class="cta-button">Explore Results <span class="arrow">→</span></a>
+                    <a href="#work" class="cta-button">Client Stories <span class="arrow">→</span></a>
                 </div>
 
                 <div class="hero-photo">
@@ -47,44 +46,56 @@
     </section>
 
     <main id="work" class="content container" style="max-width:1160px;margin:48px auto;padding:0 20px;">
-        <h2 class="section-title">Featured Case Studies</h2>
+        <h2 class="section-title">Client Voices</h2>
         <div class="projects-grid">
             <div class="project-item">
                 <img src="photos/l.jpg" alt="Calendar management case study">
                 <div class="overlay">
-                    <h3>Calendar & Schedule Management</h3>
-                    <p>Reduced scheduling conflicts by 90% and freed up 10+ hours per week.</p>
-                    <a href="#">Executive Support</a>
+                    <h3>Managing Partner</h3>
+                    <p>Eira didn't just take things off my plate — they transformed the entire rhythm of how I operate. I'm making better decisions, moving faster, and finally leading instead of managing. It's the single best investment I've made in my business.</p>
+                    <a href="#">Growth Equity Fund · London & Dubai</a>
                 </div>
             </div>
 
             <div class="project-item">
                 <img src="photos/l.jpg" alt="Travel coordination case study">
                 <div class="overlay">
-                    <h3>Travel Coordination & Logistics</h3>
-                    <p>Saved 15+ planning hours per trip and reduced travel expenses by 20%.</p>
-                    <a href="#">Travel Management</a>
+                    <h3>Founder & CEO</h3>
+                    <p>The level of discretion and foresight Eira brings is unlike anything I've experienced. They think three steps ahead — always.</p>
+                    <a href="#">Fintech Portfolio Company · Singapore</a>
                 </div>
             </div>
 
             <div class="project-item">
                 <img src="photos/l.jpg" alt="Process optimization case study">
                 <div class="overlay">
-                    <h3>Workflow & Process Optimization</h3>
-                    <p>Cut reporting cycles from 3 days to 1 day and improved task tracking by 70%.</p>
-                    <a href="#">Process Improvement</a>
+                    <h3>Serial Entrepreneur</h3>
+                    <p>Managing operations across five entities in four countries felt impossible before Eira. Now it feels effortless. They are genuinely world-class — a rare combination of strategic thinking and flawless execution.</p>
+                    <a href="#">Real Estate & Technology · New York & Nairobi</a>
                 </div>
             </div>
 
             <div class="project-item">
                 <img src="photos/l.jpg" alt="Meeting and presentation case study">
                 <div class="overlay">
-                    <h3>Meeting & Reporting Support</h3>
-                    <p>Made meetings 40% more efficient and cut report creation time by 50%.</p>
-                    <a href="#">Communication Support</a>
+                    <h3>Chief Executive Officer</h3>
+                    <p>From board communications to complex international travel — Eira handles it all with remarkable precision. My board actually noticed the difference in how polished everything became.</p>
+                    <a href="#">Healthcare Group · Nairobi & Geneva</a>
                 </div>
             </div>
         </div>
     </main>
+    <script>
+        (function(){
+            const current = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.navbar a').forEach((link) => {
+                const href = link.getAttribute('href') || '';
+                const target = href.split('/').pop();
+                if (target === current) {
+                    link.classList.add('is-active');
+                }
+            });
+        })();
+    </script>
 </body>
 </html>

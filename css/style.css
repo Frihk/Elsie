@@ -230,6 +230,19 @@ main > section {
     width: 100%;
 }
 
+.nav-top a.is-active,
+.nav-bottom a.is-active {
+    color: #481B26;
+    font-size: 0.86rem;
+}
+
+.nav-top a.is-active::after,
+.nav-bottom a.is-active::after {
+    width: 100%;
+    background: #481B26;
+    opacity: 1;
+}
+
 .hero {
     min-height: 100vh;
     display: flex;
