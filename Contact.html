@@ -36,17 +36,14 @@
         </div>
     </header>
 
-    <main class="container" style="max-width:920px;margin:72px auto;padding:0 20px;">
+    <main class="container" style="max-width:920px;margin:56px auto;padding:0 20px;">
         <section class="section contact-grid">
-            <form class="contact-form" action="#" method="POST" aria-label="Contact form">
-                <label for="name">Begin Your Partnership</label>
-                <input id="name" name="name" type="text" required>
-
-                <label for="email">Schedule a Private Consultation</label>
-                <input id="email" name="email" type="email" required>
+            <form class="contact-form" action="/contact" method="POST" aria-label="Contact form">
+                <label for="email">Begin Your Partnership Schedule Consultation</label>
+                <input id="email" name="email" type="email" placeholder="input your email" required>
 
                 <label for="type">Our Services</label>
-                <select id="type" name="type">
+                <select id="type" name="type" required>
                     <option>Operations Management</option>
                     <option>Calendar Coordination</option>
                     <option>Travel & Logistics</option>
@@ -86,6 +83,21 @@
                 const target = href.split('/').pop();
                 if (target === current) {
                     link.classList.add('is-active');
+                }
+            });
+        })();
+    </script>
+    <script>
+        (function(){
+            const form = document.querySelector('.contact-form');
+            if (!form) return;
+            form.addEventListener('submit', (event) => {
+                const message = form.querySelector('#message');
+                if (!message) return;
+                const value = message.value || '';
+                if (/\b(?:https?:\/\/|www\.)\S+/i.test(value)) {
+                    event.preventDefault();
+                    alert('Links are not allowed. Please remove any URLs and try again.');
                 }
             });
         })();
