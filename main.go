@@ -31,7 +31,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/contact", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
-			http.ServeFile(w, r, "Contact.html")
+			http.ServeFile(w, r, "Enquire.html")
 			return
 		}
 		if r.Method != http.MethodPost {
