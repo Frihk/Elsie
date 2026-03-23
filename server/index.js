@@ -141,7 +141,7 @@ app.post('/api/contact', async (req, res) => {
     try {
         await transporter.sendMail({
             from: process.env.SMTP_FROM,
-            to: process.env.CONTACT_TO || 'frihkian05@gmail.com',
+            to: process.env.CONTACT_TO || 'founder@eiraexecutiveops.com',
             replyTo: email,
             subject: `New Contact Form Message - ${support}`,
             text: mailText
