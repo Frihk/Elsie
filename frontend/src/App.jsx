@@ -5,6 +5,7 @@ import Contact from './pages/Contact.jsx';
 import Home from './pages/Home.jsx';
 import Projects from './pages/Projects.jsx';
 import Services from './pages/Services.jsx';
+import { ContentProvider } from './context/ContentContext.jsx';
 
 const routes = {
   '/': Home,
@@ -24,8 +25,10 @@ export default function App() {
   const Page = getPageFromPath(window.location.pathname);
 
   return (
-    <Layout>
-      <Page />
-    </Layout>
+    <ContentProvider>
+      <Layout>
+        <Page />
+      </Layout>
+    </ContentProvider>
   );
 }

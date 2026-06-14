@@ -1,23 +1,25 @@
 import ButtonLink from '../components/ButtonLink.jsx';
 import ProjectCard from '../components/ProjectCard.jsx';
 import SectionHeader from '../components/SectionHeader.jsx';
-import { projects, services, stats } from '../data/site.js';
+import { useContent } from '../context/ContentContext.jsx';
 
 export default function Home() {
+  const { content, loading } = useContent();
+  const home = content && content.home ? content.home : null;
+  const projects = content && content.projects ? content.projects : [];
+  const services = content && content.services ? content.services : [];
+  const stats = content && content.stats ? content.stats : [];
   return (
     <main>
       <section className="hero-section">
         <div className="hero-copy">
-          <p className="eyebrow">Premium Digital Craft</p>
-          <h1>Building elegant web experiences</h1>
-          <p>
-            I design and develop refined digital systems that help brands show up
-            with confidence, clarity, and a memorable sense of style.
-          </p>
+          <p className="eyebrow">{home ? home.eyebrow : 'Premium Digital Craft'}</p>
+          <h1>{home ? home.title : 'Building elegant web experiences'}</h1>
+          <p>{home ? home.paragraphs?.[0] : 'I design and develop refined digital systems that help brands show up with confidence, clarity, and a memorable sense of style.'}</p>
           <div className="hero-actions">
-            <ButtonLink href="/projects">View my work</ButtonLink>
-            <ButtonLink href="/contact" variant="ghost">
-              Start a project
+            <ButtonLink href={home ? home.ctaPrimary.href : '/projects'}>{home ? home.ctaPrimary.label : 'View my work'}</ButtonLink>
+            <ButtonLink href={home ? home.ctaSecondary.href : '/contact'} variant="ghost">
+              {home ? home.ctaSecondary.label : 'Start a project'}
             </ButtonLink>
           </div>
         </div>
