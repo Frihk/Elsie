@@ -38,3 +38,16 @@ export const stats = [
   { value: '03', label: 'Core service tracks' },
   { value: '100%', label: 'Responsive structure' },
 ];
+
+export const settings = {
+  colors: {
+    primary: '#fff5ee',
+    secondary: '#5f2a2a',
+    accent: '#c1623a',
+  },
+  fonts: {
+    available: ['Inter', 'Playfair Display', 'Georgia', 'System UI'],
+    heading: 'Playfair Display',
+    body: 'Inter',
+  },
+};

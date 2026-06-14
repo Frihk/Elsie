@@ -79,10 +79,9 @@
   },
   "settings": {
     "colors": {
-      "brand": "#111111",
-      "muted": "#6b6b6b",
-      "background": "#ffffff",
-      "accent": "#c59a6d"
+      "primary": "#fff5ee",
+      "secondary": "#5f2a2a",
+      "accent": "#c1623a"
     },
     "fonts": {
       "available": ["Inter","Playfair Display","Georgia","System UI"],
