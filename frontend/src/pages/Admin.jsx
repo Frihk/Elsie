@@ -40,6 +40,8 @@ export default function Admin() {
   const { content, saveContent, loading } = useContent();
   const [draft, setDraft] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [savingSection, setSavingSection] = useState('');
+  const [statusMessage, setStatusMessage] = useState('');
 
   useEffect(() => {
     if (content) {
@@ -51,6 +53,21 @@ export default function Admin() {
     () => draft?.settings?.colors || { primary: '#fff5ee', secondary: '#5f2a2a', accent: '#c1623a' },
     [draft],
   );
+
+  const currentSections = useMemo(
+    () => ({
+      home: content?.home,
+      projects: { page: content?.pages?.projects, items: content?.projects },
+      services: { page: content?.pages?.services, items: content?.services },
+      about: content?.pages?.about,
+      contact: content?.pages?.contact,
+    }),
+    [content],
+  );
+
+  function currentSectionData(key) {
+    return currentSections[key];
+  }
 
   function updateField(path, value) {
     setDraft((current) => (current ? setValueAtPath(current, path, value) : current));
@@ -90,31 +107,28 @@ export default function Admin() {
       setSaving(true);
       const updated = await saveContent(draft);
       setDraft(clone(updated));
-      alert('Content saved');
+      setStatusMessage('All content saved.');
     } catch (err) {
-      alert('Save failed: ' + err.message);
+      setStatusMessage('Save failed: ' + err.message);
     } finally {
       setSaving(false);
+      setSavingSection('');
     }
   }
 
-  async function handleSaveColors() {
+  async function handleSaveSection(sectionLabel) {
     if (!draft) return;
     try {
       setSaving(true);
-      const updated = await saveContent({
-        ...draft,
-        settings: {
-          ...(draft.settings || {}),
-          colors,
-        },
-      });
+      setSavingSection(sectionLabel);
+      const updated = await saveContent(draft);
       setDraft(clone(updated));
-      alert('Color theme saved');
+      setStatusMessage(`${sectionLabel} saved.`);
     } catch (err) {
-      alert('Save failed: ' + err.message);
+      setStatusMessage(`Save failed for ${sectionLabel}: ${err.message}`);
     } finally {
       setSaving(false);
+      setSavingSection('');
     }
   }
 
@@ -171,6 +185,17 @@ export default function Admin() {
             </div>
           ))}
         </div>
+
+        <details>
+          <summary>View current saved global content</summary>
+          <pre>{JSON.stringify({ brand: content?.brand, navLinks: content?.navLinks }, null, 2)}</pre>
+        </details>
+
+        <div style={{ marginTop: 16 }}>
+          <button onClick={() => handleSaveSection('Global content')} disabled={saving}>
+            {savingSection === 'Global content' ? 'Saving…' : 'Save global content'}
+          </button>
+        </div>
       </section>
 
       <section className="admin-section">
@@ -192,10 +217,15 @@ export default function Admin() {
             </label>
           ))}
         </div>
+        <div style={{ marginTop: 16 }}>
+          <button onClick={() => handleSaveSection('Theme colors')} disabled={saving}>
+            {savingSection === 'Theme colors' ? 'Saving…' : 'Save theme colors'}
+          </button>
+        </div>
       </section>
 
       {pageSections.map((section) => {
-        const page = draft.pages?.[section.key] || {};
+        const page = section.key === 'home' ? draft.home || {} : draft.pages?.[section.key] || {};
         return (
           <section key={section.key} className="admin-section">
             <h3>{section.title}</h3>
@@ -362,6 +392,17 @@ export default function Admin() {
                 </label>
               </div>
             )}
+
+            <details>
+              <summary>View current saved content</summary>
+              <pre>{JSON.stringify(currentSectionData(section.key), null, 2)}</pre>
+            </details>
+
+            <div style={{ marginTop: 16 }}>
+              <button onClick={() => handleSaveSection(section.title)} disabled={saving}>
+                {savingSection === section.title ? 'Saving…' : `Save ${section.title}`}
+              </button>
+            </div>
           </section>
         );
       })}
