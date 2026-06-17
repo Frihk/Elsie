@@ -45,7 +45,7 @@ export default function Home() {
       {/* Right zone: ~40% width */}
       <div className="home-right-zone">
         <div className="home-photo-wrapper">
-          <img src="/portrait.jpg" alt="Portrait" className="home-portrait-photo" />
+          <img src={home?.heroImage || "/portrait.jpg"} alt="Portrait" className="home-portrait-photo" />
         </div>
       </div>
     </div>
