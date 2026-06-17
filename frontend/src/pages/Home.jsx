@@ -15,11 +15,19 @@ export default function Home() {
         <div className="hero-copy">
           <p className="eyebrow">{home ? home.eyebrow : 'Premium Digital Craft'}</p>
           <h1>{home ? home.title : 'Building elegant web experiences'}</h1>
-          <p>{home ? home.paragraphs?.[0] : 'I design and develop refined digital systems that help brands show up with confidence, clarity, and a memorable sense of style.'}</p>
+          {home && home.paragraphs ? (
+            home.paragraphs.map((para, index) => (
+              <p key={index}>{para}</p>
+            ))
+          ) : (
+            <p>I design and develop refined digital systems that help brands show up with confidence, clarity, and a memorable sense of style.</p>
+          )}
           <div className="hero-actions">
-            <ButtonLink href={home ? home.ctaPrimary.href : '/projects'}>{home ? home.ctaPrimary.label : 'View my work'}</ButtonLink>
-            <ButtonLink href={home ? home.ctaSecondary.href : '/contact'} variant="ghost">
-              {home ? home.ctaSecondary.label : 'Start a project'}
+            <ButtonLink href={home && home.ctaPrimary ? home.ctaPrimary.href : '/projects'}>
+              {home && home.ctaPrimary ? home.ctaPrimary.label : 'View my work'}
+            </ButtonLink>
+            <ButtonLink href={home && home.ctaSecondary ? home.ctaSecondary.href : '/contact'} variant="ghost">
+              {home && home.ctaSecondary ? home.ctaSecondary.label : 'Start a project'}
             </ButtonLink>
           </div>
         </div>
@@ -35,9 +43,9 @@ export default function Home() {
 
       <section className="page-section">
         <SectionHeader
-          eyebrow="Selected work"
-          title="Curated case studies"
-          description="A starting point for the project archive, ready for real case-study images, metrics, and writeups."
+          eyebrow={home?.projectsEyebrow || 'Selected work'}
+          title={home?.projectsTitle || 'Curated case studies'}
+          description={home?.projectsDescription || 'A starting point for the project archive, ready for real case-study images, metrics, and writeups.'}
         />
         <div className="project-grid">
           {projects.map((project) => (
@@ -48,9 +56,9 @@ export default function Home() {
 
       <section className="page-section split-section">
         <SectionHeader
-          eyebrow="Services"
-          title="From first impression to launch"
-          description="A focused structure for brand sites, portfolios, product pages, and digital experiences that need to feel considered."
+          eyebrow={home?.servicesEyebrow || 'Services'}
+          title={home?.servicesTitle || 'From first impression to launch'}
+          description={home?.servicesDescription || 'A focused structure for brand sites, portfolios, product pages, and digital experiences that need to feel considered.'}
         />
         <div className="service-list">
           {services.slice(0, 4).map((service) => (

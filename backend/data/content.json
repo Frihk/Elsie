@@ -18,7 +18,13 @@
       "We work with founders and executives managing complexity across entities, borders, and time zones."
     ],
     "ctaPrimary": { "label": "View my work", "href": "/projects" },
-    "ctaSecondary": { "label": "Start a project", "href": "/contact" }
+    "ctaSecondary": { "label": "Start a project", "href": "/contact" },
+    "projectsEyebrow": "Selected work",
+    "projectsTitle": "Curated case studies",
+    "projectsDescription": "A starting point for the project archive, ready for real case-study images, metrics, and writeups.",
+    "servicesEyebrow": "Services",
+    "servicesTitle": "From first impression to launch",
+    "servicesDescription": "A focused structure for brand sites, portfolios, product pages, and digital experiences that need to feel considered."
   },
   "projects": [
     {
