@@ -3,8 +3,6 @@ import { useContent } from '../context/ContentContext.jsx';
 export default function Home() {
   const { content, loading } = useContent();
   const home = content?.home;
-  const brand = content?.brand;
-  const navLinks = content?.navLinks || [];
 
   if (loading) {
     return (
@@ -14,30 +12,10 @@ export default function Home() {
     );
   }
 
-  const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
-
   return (
     <div className="home-split-container">
       {/* Left zone: ~60% width */}
       <div className="home-left-zone">
-        <header className="home-left-header">
-          <div className="home-brand">
-            <a href="/" className="home-brand-title">{brand?.line1 || 'EIRA'}</a>
-            <span className="home-brand-subtitle">{brand?.line2 || 'EXECUTIVE OPERATIONS'}</span>
-          </div>
-          <nav className="home-nav">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`home-nav-link ${currentPath === link.href ? 'is-active' : ''}`}
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-        </header>
-
         <main className="home-left-content">
           <div className="home-tagline-wrapper">
             <span className="home-tagline">{home?.eyebrow || 'PREMIUM DIGITAL CRAFT'}</span>

@@ -8,7 +8,7 @@
   ],
   "brand": {
     "line1": "EIRA",
-    "line2": "Executive Operations"
+    "line2": "EXECUTIVE OPERATIONS"
   },
   "home": {
     "eyebrow": "Premium Digital Craft",
@@ -44,43 +44,128 @@
     }
   ],
   "services": [
-    "Brand-led websites",
-    "Product and interface design",
-    "Frontend development",
-    "Content structure",
-    "Launch refinement",
-    "Ongoing digital care"
+    "Inbox & Communication",
+    "Calendar & Time Defense",
+    "Logistics & Travel",
+    "Special Projects"
   ],
   "stats": [
-    { "value": "06+", "label": "Launch-ready templates" },
-    { "value": "03", "label": "Core service tracks" },
-    { "value": "100%", "label": "Responsive structure" }
+    { "value": "100%", "label": "Confidentiality & Discretion" },
+    { "value": "08+", "label": "Years of executive support" },
+    { "value": "24/7", "label": "Transit & logistics support" }
   ],
   "pages": {
     "projects": {
-      "eyebrow": "Selected work",
-      "title": "Curated case studies",
-      "description": "A starting point for the project archive, ready for real case-study images, metrics, and writeups."
+      "eyebrow": "SELECTED WORK",
+      "title": "RESULTS DELIVERED TO CLIENTS",
+      "ctaLabel": "Explore Results →",
+      "services": [
+        "Strategic Operations",
+        "Calendar Precision",
+        "International Logistics",
+        "Board Relations"
+      ],
+      "testimonialsHeading": "Testimonials from clients",
+      "testimonialsSubheading1": "We build long-term partnerships based on trust,",
+      "testimonialsSubheading2": "absolute discretion, and flawless execution.",
+      "testimonials": [
+        {
+          "clientType": "Single Family Office",
+          "quote": "Eira has completely transformed how our family office manages cross-border assets and logistics. Their attention to detail is unmatched.",
+          "attribution": "Managing Director, Switzerland"
+        },
+        {
+          "clientType": "Tech Founder & CEO",
+          "quote": "Having executive support that understands high-growth environments means I can focus entirely on scaling our product.",
+          "attribution": "Founder & CEO, London"
+        },
+        {
+          "clientType": "Venture Capital Partner",
+          "quote": "Discretion and speed are critical in VC. Eira's operations management is flawless, proactive, and completely reliable.",
+          "attribution": "General Partner, Paris"
+        }
+      ]
     },
     "services": {
-      "eyebrow": "Capabilities",
-      "title": "Services with a precise point of view",
-      "description": "Each engagement is shaped around the same fundamentals: clear content, polished interaction, and a frontend that is easy to evolve."
+      "eyebrow": "CORE SERVICES",
+      "title": "Executive Support Designed for Productivity",
+      "description": "We manage the operational complexity of your business and personal life behind the scenes, allowing you to focus on high-impact leadership.",
+      "howWeWorkHeading": "How we work",
+      "howWeWorkSteps": [
+        {
+          "title": "01 — Discovery & Alignment",
+          "description": "We analyze your current processes, identify communication overhead, and align on exact preferences and tool stacks."
+        },
+        {
+          "title": "02 — Systems Optimization",
+          "description": "We establish calendar guards, email workflows, and travel protocols tailored to your specific rhythm."
+        },
+        {
+          "title": "03 — Active Management",
+          "description": "We execute day-to-day operations with high precision, anticipating needs and shielding you from noise."
+        },
+        {
+          "title": "04 — Refinement & Scale",
+          "description": "We review outcomes, automate recurring tasks, and scale operations as your footprint grows."
+        }
+      ],
+      "coreServicesHeading": "Core services",
+      "coreServices": [
+        {
+          "number": "01",
+          "name": "Inbox & Communication",
+          "description": "Triage email, draft correspondence, coordinate key communications, and act as a professional first line of defense."
+        },
+        {
+          "number": "02",
+          "name": "Calendar & Time Defense",
+          "description": "Strictly gate meetings, protect focus time, align calendars, and navigate cross-border scheduling conflicts."
+        },
+        {
+          "number": "03",
+          "name": "Logistics & Travel Planning",
+          "description": "Manage multi-stop travel, flight bookings, accommodation, ground transfers, and real-time itinerary updates."
+        },
+        {
+          "number": "04",
+          "name": "Special Project Support",
+          "description": "Research vendors, coordinate private events, construct management briefs, and handle custom operational requests."
+        }
+      ]
     },
     "about": {
-      "eyebrow": "About Elsie",
-      "title": "A studio-minded frontend for refined digital work",
-      "description": "This structure gives the brand a focused foundation: reusable sections, content data, and page-level modules that can grow into a fuller portfolio or client site.",
+      "eyebrow": "ABOUT",
+      "title": "Eira Executive Operations",
       "paragraphs": [
-        "Elsie pairs quiet visual polish with practical engineering decisions, so the site can look premium without becoming difficult to maintain.",
-        "The frontend is now organized around pages, shared components, and central content collections. That makes future edits smaller and keeps visual rhythm consistent across the experience."
+        "Eira was founded on a simple premise: high-performing leaders should not be bogged down by operational details. We provide high-end, discreet executive operations support designed to free up intellectual capacity and drive leverage.",
+        "Our approach blends absolute discretion with rigorous attention to detail. We fit seamlessly into your existing tech stack and personal workflows, acting as a quiet shield and a force multiplier for your productivity."
+      ],
+      "caption": "CEO AND FOUNDER OF EIRA EXECUTIVE OPERATIONS",
+      "discretionSubheading": "Efficiency with discretion",
+      "discretionParagraph": "We operate behind the scenes, ensuring your processes run smoothly while maintaining absolute confidentiality at all times.",
+      "whyChooseHeading": "Why Choose Eira",
+      "whyChooseReasons": [
+        {
+          "label": "Discretion",
+          "text": "Absolute confidentiality in all personal and professional affairs."
+        },
+        {
+          "label": "Precision",
+          "text": "Detail-oriented workflows that prevent errors before they happen."
+        },
+        {
+          "label": "Adaptability",
+          "text": "Seamlessly fitting into your existing tech stack and routines."
+        }
       ]
     },
     "contact": {
-      "eyebrow": "Contact",
-      "title": "Tell me what you are building",
-      "description": "Use this page as the future home for a contact form, booking link, or direct project inquiry flow.",
-      "email": "hello@elsie.studio"
+      "eyebrow": "CONTACT",
+      "title": "Tell us what you are building",
+      "description": "We work with a select group of clients to ensure dedicated, high-touch service. Reach out to discuss how we can support your operations.",
+      "email": "hello@eira.operations",
+      "location": "Geneva, Switzerland & London, UK",
+      "linkedin": "https://linkedin.com/company/eira-executive-operations"
     }
   },
   "settings": {
@@ -90,7 +175,12 @@
       "accent": "#c1623a"
     },
     "fonts": {
-      "available": ["Inter","Playfair Display","Georgia","System UI"],
+      "available": [
+        "Inter",
+        "Playfair Display",
+        "Georgia",
+        "System UI"
+      ],
       "heading": "Playfair Display",
       "body": "Inter"
     }
