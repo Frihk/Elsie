@@ -1,87 +1,75 @@
 import { useContent } from '../context/ContentContext.jsx';
+import { content as fallbackContent, fallbackBlocks } from '../data/site.js';
+
+function ProjectsSkeleton() {
+  return (
+    <main className="page-shell">
+      <section className="split-hero">
+        <div className="skeleton-layout">
+          <div className="skeleton skeleton-kicker" />
+          <div className="skeleton skeleton-title" />
+          <div className="skeleton skeleton-line" />
+          <div className="skeleton skeleton-line" />
+          <div className="skeleton skeleton-button" />
+        </div>
+        <div className="skeleton skeleton-portrait" />
+      </section>
+      <section className="section-band">
+        <div className="skeleton skeleton-title skeleton-title--small" />
+        <div className="card-grid">
+          <div className="skeleton skeleton-card" />
+          <div className="skeleton skeleton-card" />
+          <div className="skeleton skeleton-card" />
+        </div>
+      </section>
+    </main>
+  );
+}
 
 export default function Projects() {
-  const { content, loading } = useContent();
-  const page = content?.pages?.projects;
+  const { blocks, content, loading } = useContent();
+  const page = content?.projects || fallbackContent.projects;
+  const testimonials = blocks?.projects?.testimonial || fallbackBlocks('projects', 'testimonial');
 
-  if (loading) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: 'var(--color-bg)', color: 'var(--color-secondary)' }}>
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
-  const services = page?.services || [
-    "Strategic Operations",
-    "Calendar Precision",
-    "International Logistics",
-    "Board Relations"
-  ];
-
-  const testimonials = page?.testimonials || [];
+  if (loading) return <ProjectsSkeleton />;
 
   return (
-    <div className="projects-container">
-      {/* Hero section */}
-      <section className="projects-hero-split">
-        <div className="projects-hero-left">
-          <div className="projects-hero-content">
-            <span className="projects-eyebrow">{page?.eyebrow || 'SELECTED WORK'}</span>
-            <div className="projects-tagline-rule" />
-            
-            <h1 className="projects-headline">
-              {page?.title || 'RESULTS DELIVERED TO CLIENTS'}
-            </h1>
-            
-            <ul className="projects-services-list">
-              {services.map((service, index) => (
-                <li key={index}>
-                  {index > 0 && <span className="list-dot">•</span>}
-                  <span className="service-text">{service}</span>
-                </li>
-              ))}
-            </ul>
-            
-            <div className="projects-cta-wrapper">
-              <a href="#testimonials" className="projects-cta-btn">
-                {page?.ctaLabel || 'Explore Results →'}
-              </a>
-            </div>
-          </div>
+    <main className="page-shell">
+      <section className="split-hero">
+        <div className="hero-stack">
+          <p className="eyebrow">{page.projects_cta_label}</p>
+          <h1>{page.projects_headline}</h1>
+          <ul className="ornate-list">
+            {page.projects_bullets.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <a className="button-link" href="#testimonials">
+            {page.projects_cta_label}
+            <span aria-hidden="true">-&gt;</span>
+          </a>
         </div>
-        
-        <div className="projects-hero-right">
-          <div className="projects-photo-wrapper">
-            <img src="/projects_portrait.jpg" alt="Results Portrait" className="projects-portrait-photo" />
-          </div>
+        <div className="image-panel">
+          <img src={page.projects_image} alt="Eira client results portrait" />
         </div>
       </section>
 
-      {/* Testimonials section */}
-      <section id="testimonials" className="testimonials-section">
-        <div className="testimonials-header">
-          <h2 className="testimonials-title">
-            {page?.testimonialsHeading || 'Testimonials from clients'}
-          </h2>
-          <p className="testimonials-subtitle">
-            {page?.testimonialsSubheading1 || 'We build long-term partnerships based on trust,'}
-          </p>
-          <p className="testimonials-subtitle">
-            {page?.testimonialsSubheading2 || 'absolute discretion, and flawless execution.'}
-          </p>
+      <section className="section-band" id="testimonials">
+        <div className="section-heading">
+          <h2>{page.testimonials_heading}</h2>
+          <p>{page.testimonials_subtext_1}</p>
+          <p>{page.testimonials_subtext_2}</p>
         </div>
-
-        <div className="testimonials-grid">
-          {testimonials.map((t, index) => (
-            <div className="testimonial-card" key={index}>
-              <h3 className="testimonial-client-type">{t.clientType}</h3>
-              <p className="testimonial-quote">"{t.quote}"</p>
-              <span className="testimonial-attribution">{t.attribution}</span>
-            </div>
+        <div className="card-grid">
+          {testimonials.map((block) => (
+            <article className="lux-card" key={block.id}>
+              <h3>{block.data.title}</h3>
+              <p>{block.data.quote}</p>
+              <span>{block.data.attribution}</span>
+            </article>
           ))}
         </div>
       </section>
-    </div>
+    </main>
   );
 }
