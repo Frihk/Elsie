@@ -1,21 +1,29 @@
 import { useContent } from '../context/ContentContext.jsx';
+import { navLinks as fallbackNav } from '../data/site.js';
 
 export default function Layout({ children }) {
   const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
-  const { content, loading } = useContent();
+  const { content, settings } = useContent();
 
-  const navLinks = !loading && content && content.navLinks ? content.navLinks : [];
-  const brandLine1 = !loading && content && content.brand ? content.brand.line1 : 'EIRA';
-  const brandLine2 = !loading && content && content.brand ? content.brand.line2 : 'EXECUTIVE OPERATIONS';
+  if (currentPath === '/admin') {
+    return <div className="app-shell app-shell--admin">{children}</div>;
+  }
+
+  const navLinks = fallbackNav.map((link) => ({
+    ...link,
+    label: settings?.[link.key] || link.label,
+  }));
+  const brandName = content?.home?.brand_name || 'EIRA';
+  const brandSubtitle = content?.home?.brand_subtitle || 'EXECUTIVE OPERATIONS';
 
   return (
     <div className="app-shell">
       <header className="site-header">
         <div className="site-brand">
           <a className="brand-mark" href="/" aria-label="Home">
-            {brandLine1}
+            {brandName}
           </a>
-          <span className="brand-subtitle">{brandLine2}</span>
+          <span className="brand-subtitle">{brandSubtitle}</span>
         </div>
         <nav className="site-nav" aria-label="Primary navigation">
           {navLinks.map((link) => (
