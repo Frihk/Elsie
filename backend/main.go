@@ -11,13 +11,16 @@ import (
 
 	"elsie/db"
 	"elsie/handlers"
+	"elsie/middleware"
 )
 
 func main() {
 	port := env("PORT", "8080")
 	clientOrigin := env("CLIENT_ORIGIN", "http://localhost:5173")
-	databasePath := env("DATABASE_PATH", "data/elsie.sqlite")
+	productionOrigin := env("PRODUCTION_ORIGIN", "")
+	databasePath := env("DATABASE_PATH", "data/eira.sqlite")
 	jwtSecret := env("JWT_SECRET", "change-me-in-production")
+	adminPassword := env("ADMIN_PASSWORD", "")
 	uploadDir := env("UPLOAD_DIR", "static/uploads")
 
 	store, err := db.Init(databasePath)
@@ -31,21 +34,29 @@ func main() {
 	}
 
 	server := &handlers.Server{
-		DB:        store,
-		JWTSecret: []byte(jwtSecret),
-		UploadDir: uploadDir,
+		DB:            store,
+		JWTSecret:     []byte(jwtSecret),
+		AdminPassword: adminPassword,
+		UploadDir:     uploadDir,
+	}
+
+	protected := func(handler http.HandlerFunc) http.HandlerFunc {
+		return middleware.JWT([]byte(jwtSecret), http.HandlerFunc(handler)).ServeHTTP
 	}
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/login", allowMethods([]string{http.MethodPost}, server.Login))
-	mux.HandleFunc("/api/content", allowMethods([]string{http.MethodGet, http.MethodPost}, dispatch(server.GetContent, server.PostContent)))
-	mux.HandleFunc("/api/settings", allowMethods([]string{http.MethodGet, http.MethodPost}, dispatch(server.GetSettings, server.PostSettings)))
-	mux.HandleFunc("/api/upload", allowMethods([]string{http.MethodPost}, server.Upload))
+	mux.HandleFunc("/api/content", allowMethods([]string{http.MethodGet, http.MethodPost}, dispatch(server.GetContent, protected(server.PostContent))))
+	mux.HandleFunc("/api/settings", allowMethods([]string{http.MethodGet, http.MethodPost}, dispatch(server.GetSettings, protected(server.PostSettings))))
+	mux.HandleFunc("/api/blocks", allowMethods([]string{http.MethodGet, http.MethodPost}, dispatch(server.GetBlocks, protected(server.PostBlocks))))
+	mux.HandleFunc("/api/blocks/", allowMethods([]string{http.MethodDelete}, protected(server.DeleteBlock)))
+	mux.HandleFunc("/api/upload", allowMethods([]string{http.MethodPost}, protected(server.Upload)))
+	mux.Handle("/uploads/", http.StripPrefix("/uploads/", http.FileServer(http.Dir(uploadDir))))
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusNotFound, map[string]any{"error": "not found"})
 	})
 
-	handler := withCORS(clientOrigin, server.WithJWT(mux))
+	handler := withCORS([]string{clientOrigin, productionOrigin}, mux)
 
 	httpServer := &http.Server{
 		Addr:              ":" + port,
@@ -53,7 +64,7 @@ func main() {
 		ReadHeaderTimeout: 5 * time.Second,
 	}
 
-	log.Printf("Elsie API listening on port %s", port)
+	log.Printf("Eira API listening on port %s", port)
 	if err := httpServer.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 		log.Fatalf("server stopped: %v", err)
 	}
@@ -93,15 +104,18 @@ func allowMethods(methods []string, handler http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-func withCORS(clientOrigin string, next http.Handler) http.Handler {
+func withCORS(allowedOrigins []string, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		origin := r.Header.Get("Origin")
-		if origin == clientOrigin {
-			w.Header().Set("Access-Control-Allow-Origin", origin)
-			w.Header().Set("Vary", "Origin")
+		for _, allowed := range allowedOrigins {
+			if allowed != "" && origin == allowed {
+				w.Header().Set("Access-Control-Allow-Origin", origin)
+				w.Header().Set("Vary", "Origin")
+				break
+			}
 		}
 		w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
 		w.Header().Set("Access-Control-Allow-Credentials", "true")
 
 		if r.Method == http.MethodOptions {

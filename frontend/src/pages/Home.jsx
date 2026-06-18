@@ -1,53 +1,43 @@
 import { useContent } from '../context/ContentContext.jsx';
+import { content as fallbackContent } from '../data/site.js';
+
+function HomeSkeleton() {
+  return (
+    <main className="home-shell">
+      <section className="home-copy skeleton-layout">
+        <div className="skeleton skeleton-kicker" />
+        <div className="skeleton skeleton-title" />
+        <div className="skeleton skeleton-line" />
+        <div className="skeleton skeleton-line skeleton-line--short" />
+        <div className="skeleton skeleton-button" />
+      </section>
+      <aside className="home-visual">
+        <div className="skeleton skeleton-portrait" />
+      </aside>
+    </main>
+  );
+}
 
 export default function Home() {
   const { content, loading } = useContent();
-  const home = content?.home;
+  const home = content?.home || fallbackContent.home;
 
-  if (loading) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: 'var(--color-bg)', color: 'var(--color-secondary)' }}>
-        <p>Loading Elsie...</p>
-      </div>
-    );
-  }
+  if (loading) return <HomeSkeleton />;
 
   return (
-    <div className="home-split-container">
-      {/* Left zone: ~60% width */}
-      <div className="home-left-zone">
-        <main className="home-left-content">
-          <div className="home-tagline-wrapper">
-            <span className="home-tagline">{home?.eyebrow || 'PREMIUM DIGITAL CRAFT'}</span>
-            <div className="home-tagline-rule" />
-          </div>
-          
-          <h1 className="home-headline">
-            {home?.title || 'Building elegant web experiences'}
-          </h1>
-          
-          <p className="home-paragraph">
-            {home?.paragraphs?.[0] || 'I design and develop refined digital systems that help brands show up with confidence, clarity, and a memorable sense of style.'}
-          </p>
-          
-          <div className="home-cta-wrapper">
-            <a href={home?.ctaPrimary?.href || '/projects'} className="home-cta-btn">
-              {home?.ctaPrimary?.label || 'View my work'}
-              <svg className="home-cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </a>
-          </div>
-        </main>
-      </div>
-
-      {/* Right zone: ~40% width */}
-      <div className="home-right-zone">
-        <div className="home-photo-wrapper">
-          <img src={home?.heroImage || "/portrait.jpg"} alt="Portrait" className="home-portrait-photo" />
-        </div>
-      </div>
-    </div>
+    <main className="home-shell">
+      <section className="home-copy">
+        <p className="eyebrow">{home.hero_tagline}</p>
+        <h1>{home.hero_headline}</h1>
+        <p className="lead-copy">{home.hero_body}</p>
+        <a className="button-link" href={home.hero_cta_link}>
+          {home.hero_cta_label}
+          <span aria-hidden="true">-&gt;</span>
+        </a>
+      </section>
+      <aside className="home-visual">
+        <img src={home.hero_image} alt={`${home.brand_name} executive portrait`} />
+      </aside>
+    </main>
   );
 }
