@@ -1,18 +1,21 @@
 # Elsie Backend
 
-Node.js API for the Elsie project.
+Go API for the Elsie project using the standard `net/http` package.
 
-## Scripts
+## Run
 
-- `npm run dev` starts the API with Node watch mode.
-- `npm start` starts the API normally.
-- `npm run health` checks `GET /api/health`.
+```sh
+go run .
+```
 
 ## Routes
 
-- `GET /api/health`
-- `POST /api/contact`
-- `GET /api/admin/summary`
+- `POST /api/login`
+- `GET /api/content`
+- `POST /api/content`
+- `GET /api/settings`
+- `POST /api/settings`
+- `POST /api/upload`
 
 ## Environment
 
