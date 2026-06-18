@@ -6,6 +6,12 @@ frontend/node_modules/
 dist/
 frontend/dist/
 
+# Runtime data
+backend/data/*.sqlite
+backend/data/*.sqlite-*
+backend/static/uploads/*
+!backend/static/uploads/.gitkeep
+
 # Environment variables and local secrets
 .env
 .env.local
