@@ -1,6 +1,6 @@
 # Elsie Backend
 
-Go API for the Elsie project using the standard `net/http` package.
+Go API for Eira Executive Operations using the standard `net/http` package, SQLite, and JWT-protected admin writes.
 
 ## Run
 
@@ -15,7 +15,11 @@ go run .
 - `POST /api/content`
 - `GET /api/settings`
 - `POST /api/settings`
+- `GET /api/blocks`
+- `POST /api/blocks`
+- `DELETE /api/blocks/:id`
 - `POST /api/upload`
+- `GET /uploads/:filename`
 
 ## Environment
 
