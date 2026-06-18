@@ -1,63 +1,53 @@
-import ButtonLink from '../components/ButtonLink.jsx';
-import ProjectCard from '../components/ProjectCard.jsx';
-import SectionHeader from '../components/SectionHeader.jsx';
 import { useContent } from '../context/ContentContext.jsx';
 
 export default function Home() {
   const { content, loading } = useContent();
-  const home = content && content.home ? content.home : null;
-  const projects = content && content.projects ? content.projects : [];
-  const services = content && content.services ? content.services : [];
-  const stats = content && content.stats ? content.stats : [];
+  const home = content?.home;
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: 'var(--color-bg)', color: 'var(--color-secondary)' }}>
+        <p>Loading Elsie...</p>
+      </div>
+    );
+  }
+
   return (
-    <main>
-      <section className="hero-section">
-        <div className="hero-copy">
-          <p className="eyebrow">{home ? home.eyebrow : 'Premium Digital Craft'}</p>
-          <h1>{home ? home.title : 'Building elegant web experiences'}</h1>
-          <p>{home ? home.paragraphs?.[0] : 'I design and develop refined digital systems that help brands show up with confidence, clarity, and a memorable sense of style.'}</p>
-          <div className="hero-actions">
-            <ButtonLink href={home ? home.ctaPrimary.href : '/projects'}>{home ? home.ctaPrimary.label : 'View my work'}</ButtonLink>
-            <ButtonLink href={home ? home.ctaSecondary.href : '/contact'} variant="ghost">
-              {home ? home.ctaSecondary.label : 'Start a project'}
-            </ButtonLink>
+    <div className="home-split-container">
+      {/* Left zone: ~60% width */}
+      <div className="home-left-zone">
+        <main className="home-left-content">
+          <div className="home-tagline-wrapper">
+            <span className="home-tagline">{home?.eyebrow || 'PREMIUM DIGITAL CRAFT'}</span>
+            <div className="home-tagline-rule" />
           </div>
-        </div>
-        <div className="hero-panel" aria-label="Elsie studio overview">
-          {stats.map((item) => (
-            <div key={item.label}>
-              <strong>{item.value}</strong>
-              <span>{item.label}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+          
+          <h1 className="home-headline">
+            {home?.title || 'Building elegant web experiences'}
+          </h1>
+          
+          <p className="home-paragraph">
+            {home?.paragraphs?.[0] || 'I design and develop refined digital systems that help brands show up with confidence, clarity, and a memorable sense of style.'}
+          </p>
+          
+          <div className="home-cta-wrapper">
+            <a href={home?.ctaPrimary?.href || '/projects'} className="home-cta-btn">
+              {home?.ctaPrimary?.label || 'View my work'}
+              <svg className="home-cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </main>
+      </div>
 
-      <section className="page-section">
-        <SectionHeader
-          eyebrow="Selected work"
-          title="Curated case studies"
-          description="A starting point for the project archive, ready for real case-study images, metrics, and writeups."
-        />
-        <div className="project-grid">
-          {projects.map((project) => (
-            <ProjectCard key={project.title} {...project} />
-          ))}
+      {/* Right zone: ~40% width */}
+      <div className="home-right-zone">
+        <div className="home-photo-wrapper">
+          <img src={home?.heroImage || "/portrait.jpg"} alt="Portrait" className="home-portrait-photo" />
         </div>
-      </section>
-
-      <section className="page-section split-section">
-        <SectionHeader
-          eyebrow="Services"
-          title="From first impression to launch"
-          description="A focused structure for brand sites, portfolios, product pages, and digital experiences that need to feel considered."
-        />
-        <div className="service-list">
-          {services.slice(0, 4).map((service) => (
-            <span key={service}>{service}</span>
-          ))}
-        </div>
-      </section>
-    </main>
+      </div>
+    </div>
   );
 }

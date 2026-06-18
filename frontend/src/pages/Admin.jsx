@@ -1,6 +1,6 @@
 import SectionHeader from '../components/SectionHeader.jsx';
 import { useEffect, useMemo, useState } from 'react';
-import { useContent } from '../context/ContentContext.jsx';
+import { useContent, applyTheme } from '../context/ContentContext.jsx';
 
 const defaultColors = {
   primary: '#fff5ee',
@@ -48,6 +48,28 @@ export default function Admin() {
       setDraft(clone(content));
     }
   }, [content]);
+
+  // Dynamically apply draft settings for live preview!
+  useEffect(() => {
+    if (draft?.settings) {
+      applyTheme(draft.settings);
+    }
+  }, [draft?.settings]);
+
+  const presetFonts = [
+    'Inter',
+    'Playfair Display',
+    'Georgia',
+    'System UI',
+    'Lora',
+    'Merriweather',
+    'Cormorant Garamond',
+    'Cinzel',
+    'Montserrat',
+    'Roboto',
+    'Open Sans',
+    'Lato'
+  ];
 
   const colors = useMemo(
     () => draft?.settings?.colors || { primary: '#fff5ee', secondary: '#5f2a2a', accent: '#c1623a' },
@@ -199,13 +221,15 @@ export default function Admin() {
       </section>
 
       <section className="admin-section">
-        <h3>Theme colors</h3>
-        <p>Primary/background (60%), secondary/nav/text (30%), accent buttons/links (10%).</p>
+        <h3>Theme Settings (Colors & Fonts)</h3>
+        <p>Primary/background (60% weight), secondary/text/nav (30% weight), and accent buttons/links (10% weight) color scheme. Font choices will render instantly across headers and text.</p>
+        
+        <h4>Color Customization</h4>
         <div className="admin-field-grid">
           {[
-            { key: 'primary', label: 'Primary / background' },
-            { key: 'secondary', label: 'Secondary / text/nav' },
-            { key: 'accent', label: 'Accent / CTA' },
+            { key: 'primary', label: 'Primary / background (60%)' },
+            { key: 'secondary', label: 'Secondary / text/nav (30%)' },
+            { key: 'accent', label: 'Accent / CTA (10%)' },
           ].map(({ key, label }) => (
             <label key={key}>
               {label}
@@ -217,33 +241,100 @@ export default function Admin() {
             </label>
           ))}
         </div>
-        <div style={{ marginTop: 16 }}>
-          <button onClick={() => handleSaveSection('Theme colors')} disabled={saving}>
-            {savingSection === 'Theme colors' ? 'Saving…' : 'Save theme colors'}
+
+        <h4 style={{ marginTop: 24 }}>Typography (Font Selection)</h4>
+        <div className="admin-field-grid">
+          <label>
+            Heading Font
+            <select
+              style={{ padding: '12px', borderRadius: '10px', border: '1px solid var(--color-border)', background: 'var(--color-bg)', color: 'var(--color-secondary)' }}
+              value={presetFonts.includes(draft.settings?.fonts?.heading) ? draft.settings?.fonts?.heading : 'custom'}
+              onChange={(event) => {
+                const val = event.target.value;
+                if (val !== 'custom') {
+                  updateField(['settings', 'fonts', 'heading'], val);
+                } else {
+                  updateField(['settings', 'fonts', 'heading'], '');
+                }
+              }}
+            >
+              {presetFonts.map(font => (
+                <option key={font} value={font}>{font}</option>
+              ))}
+              <option value="custom">Custom Google Font...</option>
+            </select>
+          </label>
+          {(!presetFonts.includes(draft.settings?.fonts?.heading) || !draft.settings?.fonts?.heading) && (
+            <label>
+              Custom Heading Font Name
+              <input
+                value={draft.settings?.fonts?.heading || ''}
+                onChange={(event) => updateField(['settings', 'fonts', 'heading'], event.target.value)}
+                placeholder="e.g. Montserrat"
+              />
+            </label>
+          )}
+
+          <label>
+            Body Font
+            <select
+              style={{ padding: '12px', borderRadius: '10px', border: '1px solid var(--color-border)', background: 'var(--color-bg)', color: 'var(--color-secondary)' }}
+              value={presetFonts.includes(draft.settings?.fonts?.body) ? draft.settings?.fonts?.body : 'custom'}
+              onChange={(event) => {
+                const val = event.target.value;
+                if (val !== 'custom') {
+                  updateField(['settings', 'fonts', 'body'], val);
+                } else {
+                  updateField(['settings', 'fonts', 'body'], '');
+                }
+              }}
+            >
+              {presetFonts.map(font => (
+                <option key={font} value={font}>{font}</option>
+              ))}
+              <option value="custom">Custom Google Font...</option>
+            </select>
+          </label>
+          {(!presetFonts.includes(draft.settings?.fonts?.body) || !draft.settings?.fonts?.body) && (
+            <label>
+              Custom Body Font Name
+              <input
+                value={draft.settings?.fonts?.body || ''}
+                onChange={(event) => updateField(['settings', 'fonts', 'body'], event.target.value)}
+                placeholder="e.g. Open Sans"
+              />
+            </label>
+          )}
+        </div>
+
+        <div style={{ marginTop: 24 }}>
+          <button onClick={() => handleSaveSection('Theme Settings')} disabled={saving}>
+            {savingSection === 'Theme Settings' ? 'Saving…' : 'Save Theme Settings'}
           </button>
         </div>
       </section>
 
       {pageSections.map((section) => {
         const page = section.key === 'home' ? draft.home || {} : draft.pages?.[section.key] || {};
+        const pathPrefix = section.key === 'home' ? ['home'] : ['pages', section.key];
         return (
           <section key={section.key} className="admin-section">
             <h3>{section.title}</h3>
             <div className="admin-field-grid">
               <label>
                 Eyebrow
-                <input value={page.eyebrow || ''} onChange={(event) => updateField(['pages', section.key, 'eyebrow'], event.target.value)} />
+                <input value={page.eyebrow || ''} onChange={(event) => updateField([...pathPrefix, 'eyebrow'], event.target.value)} />
               </label>
               <label>
                 Title
-                <input value={page.title || ''} onChange={(event) => updateField(['pages', section.key, 'title'], event.target.value)} />
+                <input value={page.title || ''} onChange={(event) => updateField([...pathPrefix, 'title'], event.target.value)} />
               </label>
             </div>
             <label>
               Description
               <textarea
                 value={page.description || ''}
-                onChange={(event) => updateField(['pages', section.key, 'description'], event.target.value)}
+                onChange={(event) => updateField([...pathPrefix, 'description'], event.target.value)}
                 rows={3}
               />
             </label>
@@ -299,6 +390,92 @@ export default function Admin() {
                   <button type="button" onClick={() => addArrayItem(['home', 'paragraphs'], '')}>
                     Add paragraph
                   </button>
+                </div>
+
+                <div className="admin-section admin-subsection" style={{ marginTop: '24px', border: '1px solid var(--color-border)', padding: '16px', borderRadius: '12px' }}>
+                  <h4>Page Stats / Metrics</h4>
+                  {(draft.stats || []).map((stat, index) => (
+                    <div className="admin-grid-row" key={`stat-${index}`} style={{ display: 'grid', gridTemplateColumns: '1fr 2fr auto', gap: '12px', alignItems: 'end', marginBottom: '12px' }}>
+                      <label>
+                        Value
+                        <input
+                          value={stat.value || ''}
+                          onChange={(event) => updateField(['stats', index, 'value'], event.target.value)}
+                        />
+                      </label>
+                      <label>
+                        Label
+                        <input
+                          value={stat.label || ''}
+                          onChange={(event) => updateField(['stats', index, 'label'], event.target.value)}
+                        />
+                      </label>
+                      <button type="button" onClick={() => removeArrayItem(['stats'], index)} style={{ background: '#c1623a', color: '#fff', border: 'none', padding: '10px 14px', borderRadius: '8px', cursor: 'pointer' }}>
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                  <button type="button" onClick={() => addArrayItem(['stats'], { value: '', label: '' })} style={{ marginTop: '8px' }}>
+                    Add stat
+                  </button>
+                </div>
+
+                <div className="admin-section admin-subsection" style={{ marginTop: '24px', border: '1px solid var(--color-border)', padding: '16px', borderRadius: '12px' }}>
+                  <h4>Home Projects Section Header</h4>
+                  <div className="admin-field-grid">
+                    <label>
+                      Projects Eyebrow
+                      <input
+                        value={draft.home?.projectsEyebrow || ''}
+                        onChange={(event) => updateField(['home', 'projectsEyebrow'], event.target.value)}
+                      />
+                    </label>
+                    <label>
+                      Projects Title
+                      <input
+                        value={draft.home?.projectsTitle || ''}
+                        onChange={(event) => updateField(['home', 'projectsTitle'], event.target.value)}
+                      />
+                    </label>
+                  </div>
+                  <label style={{ display: 'block', marginTop: '12px' }}>
+                    Projects Description
+                    <textarea
+                      value={draft.home?.projectsDescription || ''}
+                      onChange={(event) => updateField(['home', 'projectsDescription'], event.target.value)}
+                      rows={2}
+                      style={{ width: '100%', marginTop: '4px' }}
+                    />
+                  </label>
+                </div>
+
+                <div className="admin-section admin-subsection" style={{ marginTop: '24px', border: '1px solid var(--color-border)', padding: '16px', borderRadius: '12px' }}>
+                  <h4>Home Services Section Header</h4>
+                  <div className="admin-field-grid">
+                    <label>
+                      Services Eyebrow
+                      <input
+                        value={draft.home?.servicesEyebrow || ''}
+                        onChange={(event) => updateField(['home', 'servicesEyebrow'], event.target.value)}
+                      />
+                    </label>
+                    <label>
+                      Services Title
+                      <input
+                        value={draft.home?.servicesTitle || ''}
+                        onChange={(event) => updateField(['home', 'servicesTitle'], event.target.value)}
+                      />
+                    </label>
+                  </div>
+                  <label style={{ display: 'block', marginTop: '12px' }}>
+                    Services Description
+                    <textarea
+                      value={draft.home?.servicesDescription || ''}
+                      onChange={(event) => updateField(['home', 'servicesDescription'], event.target.value)}
+                      rows={2}
+                      style={{ width: '100%', marginTop: '4px' }}
+                    />
+                  </label>
                 </div>
               </>
             )}
