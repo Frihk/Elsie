@@ -3,7 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-	"strings"
+	"time"
 
 	"elsie/db"
 
@@ -11,52 +11,44 @@ import (
 )
 
 type Server struct {
-	DB        *db.DB
-	JWTSecret []byte
-	UploadDir string
+	DB            *db.DB
+	JWTSecret     []byte
+	AdminPassword string
+	UploadDir     string
+}
+
+type loginRequest struct {
+	Password string `json:"password"`
 }
 
 func (s *Server) Login(w http.ResponseWriter, r *http.Request) {
-	writeJSON(w, http.StatusOK, map[string]any{
-		"ok":      true,
-		"message": "login handler scaffolded",
-	})
-}
-
-func (s *Server) WithJWT(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPost || r.URL.Path == "/api/login" {
-			next.ServeHTTP(w, r)
-			return
-		}
-
-		tokenString, ok := bearerToken(r.Header.Get("Authorization"))
-		if !ok {
-			writeJSON(w, http.StatusUnauthorized, map[string]any{"error": "missing bearer token"})
-			return
-		}
-
-		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (any, error) {
-			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-				return nil, jwt.ErrTokenSignatureInvalid
-			}
-			return s.JWTSecret, nil
-		})
-		if err != nil || !token.Valid {
-			writeJSON(w, http.StatusUnauthorized, map[string]any{"error": "invalid token"})
-			return
-		}
-
-		next.ServeHTTP(w, r)
-	})
-}
-
-func bearerToken(header string) (string, bool) {
-	parts := strings.Fields(header)
-	if len(parts) != 2 || !strings.EqualFold(parts[0], "Bearer") {
-		return "", false
+	var request loginRequest
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		writeJSON(w, http.StatusBadRequest, map[string]any{"error": "invalid json"})
+		return
 	}
-	return parts[1], true
+	if s.AdminPassword == "" || request.Password != s.AdminPassword {
+		writeJSON(w, http.StatusUnauthorized, map[string]any{"error": "incorrect password"})
+		return
+	}
+
+	expiresAt := time.Now().Add(24 * time.Hour)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"role": "admin",
+		"exp":  expiresAt.Unix(),
+		"iat":  time.Now().Unix(),
+	})
+
+	tokenString, err := token.SignedString(s.JWTSecret)
+	if err != nil {
+		writeJSON(w, http.StatusInternalServerError, map[string]any{"error": "could not sign token"})
+		return
+	}
+
+	writeJSON(w, http.StatusOK, map[string]any{
+		"token":      tokenString,
+		"expires_at": expiresAt.Format(time.RFC3339),
+	})
 }
 
 func writeJSON(w http.ResponseWriter, status int, payload any) {
