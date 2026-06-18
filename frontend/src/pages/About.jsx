@@ -1,72 +1,67 @@
 import { useContent } from '../context/ContentContext.jsx';
+import { content as fallbackContent, fallbackBlocks } from '../data/site.js';
+
+function AboutSkeleton() {
+  return (
+    <main className="page-shell">
+      <section className="split-hero">
+        <div className="skeleton skeleton-portrait" />
+        <div className="skeleton-layout">
+          <div className="skeleton skeleton-kicker" />
+          <div className="skeleton skeleton-line" />
+          <div className="skeleton skeleton-line" />
+          <div className="skeleton skeleton-line skeleton-line--short" />
+        </div>
+      </section>
+      <section className="section-band">
+        <div className="card-grid">
+          <div className="skeleton skeleton-card" />
+          <div className="skeleton skeleton-card" />
+          <div className="skeleton skeleton-card" />
+        </div>
+      </section>
+    </main>
+  );
+}
 
 export default function About() {
-  const { content, loading } = useContent();
-  const page = content?.pages?.about;
+  const { blocks, content, loading } = useContent();
+  const page = content?.about || fallbackContent.about;
+  const reasons = blocks?.about?.why_choose || fallbackBlocks('about', 'why_choose');
 
-  if (loading) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', background: 'var(--color-bg)', color: 'var(--color-secondary)' }}>
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
-  const paragraphs = page?.paragraphs || [];
-  const whyChooseReasons = page?.whyChooseReasons || [];
+  if (loading) return <AboutSkeleton />;
 
   return (
-    <div className="about-page-container">
-      {/* Hero section */}
-      <section className="about-hero-section">
-        <div className="about-hero-grid">
-          {/* Left Column: Portrait photo and caption */}
-          <div className="about-hero-left">
-            <div className="about-photo-card">
-              <img src="/about_portrait.jpg" alt="CEO & Founder" className="about-portrait-photo" />
-              <div className="about-photo-caption">
-                {page?.caption || 'CEO AND FOUNDER OF EIRA EXECUTIVE OPERATIONS'}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Title and Bio */}
-          <div className="about-hero-right">
-            <span className="about-eyebrow">{page?.eyebrow || 'ABOUT'}</span>
-            <div className="about-bio-content">
-              {paragraphs.map((p, index) => (
-                <p key={index} className="about-bio-paragraph">{p}</p>
-              ))}
-            </div>
-          </div>
+    <main className="page-shell">
+      <section className="split-hero split-hero--about">
+        <figure className="image-panel image-panel--captioned">
+          <img src={page.about_image} alt="Founder of Eira Executive Operations" />
+          <figcaption>{page.about_photo_caption}</figcaption>
+        </figure>
+        <div className="hero-stack">
+          <p className="eyebrow">{page.about_label}</p>
+          <p className="lead-copy">{page.about_bio}</p>
         </div>
       </section>
 
-      {/* Efficiency with Discretion section */}
-      <section className="about-discretion-section">
-        <h2 className="discretion-subheading">
-          {page?.discretionSubheading || 'Efficiency with discretion'}
-        </h2>
-        <p className="discretion-paragraph">
-          {page?.discretionParagraph || 'We operate behind the scenes, ensuring your processes run smoothly while maintaining absolute confidentiality at all times.'}
-        </p>
+      <section className="statement-band">
+        <h2>{page.efficiency_heading}</h2>
+        <p>{page.efficiency_body}</p>
       </section>
 
-      {/* Why Choose Eira section */}
-      <section className="about-whychoose-section">
-        <h2 className="whychoose-heading">
-          {page?.whyChooseHeading || 'Why Choose Eira'}
-        </h2>
-        <div className="whychoose-list">
-          {whyChooseReasons.map((reason, index) => (
-            <div className="whychoose-item" key={index}>
-              <p className="whychoose-text">
-                <strong className="whychoose-bold-label">{reason.label}.</strong> {reason.text}
-              </p>
-            </div>
+      <section className="section-band">
+        <div className="section-heading">
+          <h2>{page.why_choose_heading}</h2>
+        </div>
+        <div className="card-grid">
+          {reasons.map((block) => (
+            <article className="lux-card" key={block.id}>
+              <h3>{block.data.title}</h3>
+              <p>{block.data.description}</p>
+            </article>
           ))}
         </div>
       </section>
-    </div>
+    </main>
   );
 }
