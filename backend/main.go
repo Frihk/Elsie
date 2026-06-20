@@ -12,9 +12,12 @@ import (
 	"elsie/db"
 	"elsie/handlers"
 	"elsie/middleware"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	_ = godotenv.Load()
 	port := env("PORT", "8080")
 	clientOrigin := env("CLIENT_ORIGIN", "http://localhost:5173")
 	productionOrigin := env("PRODUCTION_ORIGIN", "")
