@@ -14,7 +14,6 @@ export default function Layout({ children }) {
     label: settings?.[link.key] || link.label,
   }));
   const brandName = content?.home?.brand_name || 'EIRA';
-  const brandSubtitle = content?.home?.brand_subtitle || 'EXECUTIVE OPERATIONS';
 
   return (
     <div className="app-shell">
@@ -23,7 +22,6 @@ export default function Layout({ children }) {
           <a className="brand-mark" href="/" aria-label="Home">
             {brandName}
           </a>
-          <span className="brand-subtitle">{brandSubtitle}</span>
         </div>
         <nav className="site-nav" aria-label="Primary navigation">
           {navLinks.map((link) => (
