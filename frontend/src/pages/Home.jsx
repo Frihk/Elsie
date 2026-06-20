@@ -92,7 +92,7 @@ export default function Home() {
         <div className="photo-area">
           <div className="photo-fill">
             {home.hero_image ? (
-              <img src={home.hero_image} alt="Executive Portrait" />
+              <img src={home.hero_image} alt="Executive Portrait" className="ceo-photo" />
             ) : (
               <svg className="silhouette" width="220" height="420" viewBox="0 0 220 420" fill="none">
                 <ellipse cx="110" cy="80" rx="52" ry="58" fill="#8C6455"/>

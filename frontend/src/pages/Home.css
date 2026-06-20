@@ -31,12 +31,24 @@ nav {
 /* HERO */
 .hero {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.1fr 0.9fr; /* shifted slightly to 45% / 55% feel */
   min-height: 82vh;
-  overflow: hidden;
+  position: relative;
   background: var(--cream);
   font-family: 'Cormorant Garamond', Georgia, serif; 
   color: var(--brown-deep);
+}
+
+/* Optional vertical rule */
+.hero::before {
+  content: "";
+  position: absolute;
+  left: 45%;
+  top: 20%;
+  height: 60%;
+  width: 0.5px;
+  background: rgba(90,46,26,0.15);
+  z-index: 1;
 }
 
 /* LEFT COLUMN */
@@ -147,8 +159,8 @@ nav {
 /* RIGHT COLUMN */
 .hero-right {
   position: relative;
-  background: var(--cream-dark);
-  overflow: hidden;
+  background: var(--cream); /* same as left */
+  /* no overflow:hidden so image can overlap */
 }
 
 .photo-area {
@@ -159,25 +171,33 @@ nav {
 
 .photo-fill {
   flex: 1;
-  background: #D8CCBF;
   display: flex; align-items: center; justify-content: center;
-  position: relative;
-  overflow: hidden;
+  position: static; /* Let image use hero-right or hero as relative parent */
 }
 
-.photo-fill img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.ceo-photo, .photo-fill svg {
+  position: absolute;
+  bottom: -15px; /* bleed off bottom */
+  right: 0;
+  height: 95%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  z-index: 5;
+  filter: drop-shadow(0px 20px 30px rgba(42,18,10,0.10));
+  /* overlap into left column by shifting left */
+  transform: translateX(-40px);
 }
 
 .photo-caption {
-  padding: 14px 24px;
-  background: var(--brown-deep);
-  color: var(--cream);
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  text-align: right;
+  z-index: 10;
 }
-.photo-caption-name { font-family: 'Playfair Display', serif; font-size: 16px; letter-spacing: 0.08em; margin-bottom: 2px; }
-.photo-caption-title { font-size: 10px; letter-spacing: 0.14em; color: var(--brown-light); text-transform: uppercase; }
+.photo-caption-name { font-family: 'Playfair Display', serif; font-size: 16px; letter-spacing: 0.08em; margin-bottom: 2px; color: var(--brown-deep); }
+.photo-caption-title { font-size: 10px; letter-spacing: 0.14em; color: var(--brown-muted); text-transform: uppercase; }
 
 /* Floating testimonial card */
 .floating-testi {
@@ -189,7 +209,7 @@ nav {
   width: 220px;
   box-shadow: 0 2px 20px rgba(42,18,10,0.12);
   border-radius: 2px;
-  z-index: 10;
+  z-index: 10; /* above the CEO photo */
 }
 .floating-stars { color: var(--gold); font-size: 11px; letter-spacing: 2px; margin-bottom: 8px; }
 .floating-text { font-size: 12px; font-style: italic; line-height: 1.55; color: var(--brown-mid); margin-bottom: 8px; }
