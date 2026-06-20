@@ -4,21 +4,8 @@ import { content as fallbackContent, fallbackBlocks } from '../data/site.js';
 function AboutSkeleton() {
   return (
     <main className="page-shell">
-      <section className="split-hero">
-        <div className="skeleton skeleton-portrait" />
-        <div className="skeleton-layout">
-          <div className="skeleton skeleton-kicker" />
-          <div className="skeleton skeleton-line" />
-          <div className="skeleton skeleton-line" />
-          <div className="skeleton skeleton-line skeleton-line--short" />
-        </div>
-      </section>
-      <section className="section-band">
-        <div className="card-grid">
-          <div className="skeleton skeleton-card" />
-          <div className="skeleton skeleton-card" />
-          <div className="skeleton skeleton-card" />
-        </div>
+      <section className="about-section skeleton-layout">
+        <div className="skeleton skeleton-title" />
       </section>
     </main>
   );
@@ -33,20 +20,34 @@ export default function About() {
 
   return (
     <main className="page-shell">
-      <section className="split-hero split-hero--about">
-        <figure className="image-panel image-panel--captioned">
-          <img src={page.about_image} alt="Founder of Eira Executive Operations" />
-          <figcaption>{page.about_photo_caption}</figcaption>
-        </figure>
-        <div className="hero-stack">
-          <p className="eyebrow">{page.about_label}</p>
-          <p className="lead-copy">{page.about_bio}</p>
+      {/* Component 07: About */}
+      <section className="about-section">
+        <div className="about-col-1"></div>
+        <div className="about-col-2">
+          <p className="about-bio">{page.about_bio}</p>
+        </div>
+        <div className="about-col-3">
+          <div className="fact-pair">
+            <span className="fact-label">Founded</span>
+            <span className="fact-value">2024</span>
+          </div>
+          <div className="fact-pair">
+            <span className="fact-label">Operating In</span>
+            <span className="fact-value">USA — Remote</span>
+          </div>
+          <div className="fact-pair">
+            <span className="fact-label">Approach</span>
+            <span className="fact-value">Precision & Discretion</span>
+          </div>
+          <a className="about-cta" href="/contact">
+            Work with us →
+          </a>
         </div>
       </section>
 
       <section className="statement-band">
         <h2>{page.efficiency_heading}</h2>
-        <p>{page.efficiency_body}</p>
+        <p className="lead-copy">{page.efficiency_body}</p>
       </section>
 
       <section className="section-band">
@@ -55,9 +56,9 @@ export default function About() {
         </div>
         <div className="card-grid">
           {reasons.map((block) => (
-            <article className="lux-card" key={block.id}>
-              <h3>{block.data.title}</h3>
-              <p>{block.data.description}</p>
+            <article key={block.id}>
+              <h3 style={{ fontSize: '20px', marginBottom: '16px' }}>{block.data.title}</h3>
+              <p className="text-body" style={{ color: 'var(--color-muted)' }}>{block.data.description}</p>
             </article>
           ))}
         </div>
